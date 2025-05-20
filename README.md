@@ -13,6 +13,18 @@ Project stages:
 - Training & Evaluation – Mask padding tokens; evaluate per-predicate.
 - Utilities – Includes notebook, script, and requirements list.
 
+## Project Structure
+.
+├── data/  # Folder to hold unzipped OntoNotes SRL dataset files
+│   ├── propbank_train.tsv  # BIO-tagged training data
+│   ├── propbank_dev.tsv  # BIO-tagged dev data
+│   ├── propbank_test.tsv  # BIO-tagged test data
+│   └── role_list.txt  # List of semantic role labels
+├── srl_bert.ipynb  # Jupyter notebook for training and evaluation
+├── srl_bert.py  # Source code for core project scripts
+├── ontonotes_srl.zip  # Compressed archive of formatted OntoNotes SRL data (not public)
+├── requirements.txt  # Project dependencies
+└── README.md
 
 ## Files
 
@@ -22,6 +34,7 @@ Project stages:
 - `propbank_train.tsv`, `propbank_dev.tsv`, `propbank_test.tsv`: BIO-tagged data.
 - `role_list.txt`: List of semantic role labels used.
 -  `requirements.txt`: Project dependencies.
+
 
 ## Dataset
 

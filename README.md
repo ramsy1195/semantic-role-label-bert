@@ -1,24 +1,61 @@
 # Semantic Role Labelling with BERT
 
-This project implements a Semantic Role Labelling (SRL) system using a fine-tuned BERT model in PyTorch. The task follows PropBank-style annotations and is framed as a token-level sequence labelling problem using B-I-O (Begin, Inside, Outside) tags.
+This project implements a BERT-based sequence labeling system for PropBank-style semantic role labeling, fine-tuned on OntoNotes 5.0 SRL annotations.
+
 
 ## Overview
 
-For each sentence and its predicate(s), the model predicts argument spans as B-I-O labels corresponding to semantic roles. The model uses BERT (via Huggingface's Transformers library) to compute contextualized token embeddings. A custom classification head is added on top of BERT to output role labels for each token.
+This project implements a Semantic Role Labeling (SRL) system using PyTorch and Huggingface’s BERT. The task is modeled as sequence labeling over BIO-formatted tags with special treatment of predicate positions via segment embeddings.
 
-We exploit BERT's segment embeddings to indicate the predicate's position within a sentence. Tokens belonging to the predicate receive segment ID 1, while all others receive segment ID 0.
+Project stages:
+- Data Preparation – Format OntoNotes SRL data into BIO-tagged .tsv files.
+- Modelling – Fine-tune BERT with predicate-aware segment embeddings.
+- Training & Evaluation – Mask padding tokens; evaluate per-predicate.
+- Utilities – Includes notebook, script, and requirements list.
 
-## Files Included
 
-- `srl_with_bert.ipynb`: Jupyter notebook with code, comments, and outputs.
-- `srl_with_bert.py`: Script version of the notebook.
-- `requirements.txt`: Python dependencies for the project.
+## Files
 
-## Installation
+- `srl_bert.ipynb`: Interactive Jupyter notebook for training and evaluation.
+- `srl_bert.py`: Script version for non-interactive use.
+- `ontonotes_srl.zip`: Archive containing formatted SRL datasets.
+- `propbank_train.tsv`, `propbank_dev.tsv`, `propbank_test.tsv`: BIO-tagged data.
+- `role_list.txt`: List of semantic role labels used.
+-  `requirements.txt`: Project dependencies.
 
-Create a virtual environment and install dependencies:
+## Dataset
 
+This project uses the English portion of OntoNotes 5.0 with PropBank-style annotations.
+Note: The dataset is not publicly included due to LDC licensing.
+
+## Setup
+
+1. Clone the repository.
+2. Create a virtual environment (optional).
+3. Install dependencies:
 ```bash
-python -m venv venv
-source venv/bin/activate   # On Windows use `venv\Scripts\activate`
 pip install -r requirements.txt
+```
+4. Unzip `ontonotes_srl.zip`.
+5. Check GPU availability with:
+```bash
+import torch
+print(torch.cuda.is_available())
+```
+
+## Usage
+### Jupyter Notebook
+Run all cells in `srl_bert.ipynb` for end-to-end training and evaluation.
+### Python Script
+Use the script version:
+```bash
+python srl_bert.py
+```
+
+## Notes
+- Assumes predicates are known (no predicate identification).
+- Predicate positions are marked using segment embeddings.
+- BIO-tag alignment handles subword tokenization correctly.
+- Padding tokens are masked during loss calculation.
+- Possible extensions: Add predicate identification, support span-based labelling, incorporate newer models (e.g., RoBERTa, DeBERTa), or adapt to multilingual SRL.
+

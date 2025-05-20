@@ -14,6 +14,7 @@ Project stages:
 - Utilities – Includes notebook, script, and requirements list.
 
 ## Project Structure
+```text
 .
 ├── data/  # Folder to hold unzipped OntoNotes SRL dataset files
 │   ├── propbank_train.tsv  # BIO-tagged training data
@@ -25,6 +26,7 @@ Project stages:
 ├── ontonotes_srl.zip  # Compressed archive of formatted OntoNotes SRL data (not public)
 ├── requirements.txt  # Project dependencies
 └── README.md
+```
 
 ## Files
 
